@@ -1,13 +1,11 @@
-// import { isMainThread } from "worker_threads";
-
 const API_URL = 'https://opentdb.com/api.php?amount=10&type=multiple';
 
 // クイズデータ、正解数、回答数を保持するオブジェクト
-const GameState = {
+const gameState = {
     quizz: [],
     correctOfNumber: 0,
     quizOfNumber: 0
-}
+};
 
 // IDのあるDOMを取得
 const questionElement = document.getElementById('question');
@@ -33,13 +31,13 @@ const fetchQuiz = async () => {
         // クイズデータを取得
         const response = await fetch(API_URL);
         const data = await response.json();
-        const results = await data.results;
+        const results = data.results;
 
         // ステータスを更新(初期化)
-        GameState.quizz = results;
-        GameState.correctOfNumber = 0;
-        GameState.quizOfNumber = 0;
-        setNextQuiz(GameState.quizz[GameState.quizOfNumber]);
+        gameState.quizz = results;
+        gameState.correctOfNumber = 0;
+        gameState.quizOfNumber = 0;
+        setNextQuiz(gameState.quizz[gameState.quizOfNumber]);
 
     } catch (error) {
         alert(error.message);
@@ -48,6 +46,7 @@ const fetchQuiz = async () => {
 
 const setNextQuiz = (quiz) => {
     questionElement.textContent = unescapeHTML(quiz.question);
+
     const answers = shuffleAnswers(quiz);
     const correctAnswer = unescapeHTML(quiz.correct_answer);
     answers.forEach(answer => {
@@ -61,14 +60,14 @@ const setNextQuiz = (quiz) => {
             let str = '';
             if (event.target.textContent === correctAnswer) {
                 str = 'Correct Answer!';
-                GameState.correctOfNumber++;
+                gameState.correctOfNumber++;
             } else {
                 str = `Wrong Answer...(The correct answer is ${correctAnswer})`;
             }
             // quiz.ejs 問題は答える度に更新される #6
-            GameState.quizOfNumber++;
+            gameState.quizOfNumber++;
             alert(str);
-            DeleteAllAnswers();
+            deleteAllAnswers();
         });
     });
 };
@@ -79,6 +78,7 @@ const shuffleAnswers = (quiz) => {
     const answers = [quiz.correct_answer, ...quiz.incorrect_answers];
     return shuffleArray(answers);
 };
+
 // 配列をシャッフルする関数
 const shuffleArray = (array) => {
     // 配列が上書きされないようにコピー
@@ -93,27 +93,29 @@ const shuffleArray = (array) => {
 };
 
 // 正答率を表示する前に選択肢を消す
-const DeleteAllAnswers = () => {
+const deleteAllAnswers = () => {
     questionElement.textContent = '';
     while (answerContainer.firstChild) {
         answerContainer.removeChild(answerContainer.firstChild);
     }
     // 出題数 < クイズ数の時は次の問題を表示
     // そうでない時は結果を表示
-    if (GameState.quizOfNumber < GameState.quizz.length) {
-        setNextQuiz(GameState.quizz[GameState.quizOfNumber]);
+    if (gameState.quizOfNumber < gameState.quizz.length) {
+        setNextQuiz(gameState.quizz[gameState.quizOfNumber]);
     } else {
-        finishedQuiz();
+        finishQuiz();
     }
 };
+
 // クイズを答え終わったら正答率を表示する #9
-const finishedQuiz = () => {
-    questionElement.textContent = `${GameState.correctOfNumber}/${GameState.quizz.length}`;
+const finishQuiz = () => {
+    questionElement.textContent = `${gameState.correctOfNumber}/${gameState.quizz.length}`;
     restartButton.hidden = false;
 };
+
 // unescapeHTML関数を実装する #10
 const unescapeHTML = (str) => {
-    var div = document.createElement("div");
+    const div = document.createElement("div");
     div.innerHTML = str.replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
         .replace(/ /g, "&nbsp;")

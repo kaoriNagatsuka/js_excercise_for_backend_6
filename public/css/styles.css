@@ -2,6 +2,7 @@ body {
     text-align: center;
     background-color: rgb(241, 241, 241);
 }
+
 .button {
     background-color: #fff;
     width: 800px;
@@ -11,12 +12,14 @@ body {
     border-radius: 10px;
     user-select: none;
 }
+
 /* トップページ */
 #move-quiz-page {
     margin: 0 auto;
     display: block;
     text-decoration: none;
 }
+
 #move-quiz-page:hover {
     background-color: rgb(172, 192, 255);
 }
@@ -24,23 +27,18 @@ body {
 /* クイズページ */
 ul {
     list-style: none;
+    padding: 0;
 }
 
 li {
-    /* background-color: #fff; */
     margin: 10px auto;
-    /* width: 800px; */
-    /* height: 40px; */
-    /* line-height: 40px; */
     display: inline-block;
-    /* border: 1px solid #000; */
-    /* border-radius: 10px; */
-    /* user-select: none; */
 }
 
 li:hover {
     background-color: rgb(172, 192, 255);
 }
+
 #restart-button:active {
     background: blue;
 }
