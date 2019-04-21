@@ -1,0 +1,27 @@
+{
+  "name": "js_excercise_for_backend_6",
+  "version": "1.0.0",
+  "description": "このレポジトリは[Web白熱教室](https://tsuyopon.xyz/)の[JavaScriptの学習コンテンツ > JavaScriptバックエンド編](https://tsuyopon.xyz/learning-contents/web-dev/javascript/backend/)にある「[【エクササイズ】expressを使ってクイズアプリを作る](https://tsuyopon.xyz/learning-contents/web-dev/javascript/backend/js-excercise-for-backend-6/)」で利用するものです。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaoriNagatsuka/js_excercise_for_backend_6.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaoriNagatsuka/js_excercise_for_backend_6/issues"
+  },
+  "homepage": "https://github.com/kaoriNagatsuka/js_excercise_for_backend_6#readme",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
